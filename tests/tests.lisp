@@ -29,4 +29,4 @@
 
 (test specialized
   (is (≈ (integrate/test-single #'polynomial) 82 1e-2))
-  (is (≈ (integrate/test-double #'polynomial) 82 1d-5)))
+  (is (≈ (integrate/test-double #'polynomial) 85 1d-5)))
