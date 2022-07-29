@@ -1,5 +1,6 @@
 simpsons-rule
 ============
+[![CI tests](https://github.com/shamazmazum/simpsons-rule/actions/workflows/test.yml/badge.svg)](https://github.com/shamazmazum/simpsons-rule/actions/workflows/test.yml)
 
 This system is for numeric integration of functions of one variable. See an
 example:
