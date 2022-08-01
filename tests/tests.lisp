@@ -30,3 +30,7 @@
 (test specialized
   (is (≈ (integrate/test-single #'polynomial) 82 1e-2))
   (is (≈ (integrate/test-double #'polynomial) 82 1d-5)))
+
+(test start>end
+  (is (= (integrate #'identity 0d0 1d0)
+         (- (integrate #'identity 1d0 0d0)))))

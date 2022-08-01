@@ -1,6 +1,5 @@
 (in-package :simpsons-rule)
 (deftype A->A (type) `(function (,type) (values ,type &optional)))
-(declaim (optimize (speed 3)))
 
 (macrolet ((def-integrate (name type)
              `(progn
@@ -9,14 +8,17 @@
                           ,type ,type ,type)
                          (values ,type &optional))
                 (defun ,name (fn start end δ)
+                  (declare (optimize (speed 3)))
                   (flet ((simpsons-rule (a b)
                            (* (/ (- b a) 6)
                               (+ (funcall fn a)
                                  (funcall fn b)
                                  (* 4 (funcall fn (/ (+ a b) 2)))))))
-                    (loop for x of-type ,type from start below end by δ sum
-                          (simpsons-rule x (+ x δ))
-                          of-type ,type))))))
+                    (if (> start end)
+                        (- (,name fn end start δ))
+                        (loop for x of-type ,type from start below end by δ sum
+                              (simpsons-rule x (+ x δ))
+                              of-type ,type)))))))
   (def-integrate integrate/single-float single-float)
   (def-integrate integrate/double-float double-float))
 
