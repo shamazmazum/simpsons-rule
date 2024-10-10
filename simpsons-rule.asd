@@ -1,6 +1,6 @@
 (defsystem :simpsons-rule
   :name :simpsons-rule
-  :version "0.1"
+  :version "0.2"
   :author "Vasily Postnicov <shamaz.mazum@gmail.com>"
   :description "Implementation of numeric integration with Simpson's rule"
   :licence "2-clause BSD"
@@ -17,7 +17,7 @@
 
 (defsystem :simpsons-rule/tests
   :name :simpsons-rule/tests
-  :version "0.1"
+  :version "0.2"
   :author "Vasily Postnicov <shamaz.mazum@gmail.com>"
   :licence "2-clause BSD"
   :pathname "tests/"

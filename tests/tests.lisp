@@ -15,7 +15,7 @@
 
 (in-suite integrate)
 
-(test runtime
+(test polynomial
   (is (≈ (integrate #'polynomial 1f0 3f0 1f-5) 82 1f-3))
   (is (≈ (integrate #'polynomial 1d0 3d0 1d-5) 82 1d-8)))
 
