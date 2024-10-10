@@ -7,11 +7,11 @@
       ((a->a real) real real real)
       real
       (sb-c:foldable sb-c:flushable sb-c:call sb-c::recursive))
-  (sb-c:defknown %integrate/single-float
+  (sb-c:defknown integrate/single-float
       ((a->a single-float) single-float single-float single-float)
       single-float
       (sb-c:foldable sb-c:flushable sb-c:call sb-c::recursive))
-  (sb-c:defknown %integrate/double-float
+  (sb-c:defknown integrate/double-float
       ((a->a double-float) double-float double-float double-float)
       double-float
       (sb-c:foldable sb-c:flushable sb-c:call sb-c::recursive)))
