@@ -8,8 +8,7 @@
   :pathname "src/"
   :components ((:file "package")
                (:file "integrate"))
-  :depends-on (:polymorphic-functions
-               :serapeum)
+  :depends-on (:serapeum)
   :in-order-to ((test-op (load-op "simpsons-rule/tests")))
   :perform (test-op (op system)
                     (declare (ignore op system))

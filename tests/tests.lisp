@@ -16,21 +16,9 @@
 (in-suite integrate)
 
 (test runtime
-  (is (≈ (integrate #'polynomial 1f0 3f0) 82 1e-2))
-  (is (≈ (integrate #'polynomial 1d0 3d0) 82 1d-5)))
-
-(defun integrate/test-single (function)
-  (declare (optimize (speed 3)))
-  (integrate function 1f0 3f0))
-
-(defun integrate/test-double (function)
-  (declare (optimize (speed 3)))
-  (integrate function 1d0 3d0))
-
-(test specialized
-  (is (≈ (integrate/test-single #'polynomial) 82 1e-2))
-  (is (≈ (integrate/test-double #'polynomial) 82 1d-5)))
+  (is (≈ (integrate #'polynomial 1f0 3f0 1f-5) 82 1f-3))
+  (is (≈ (integrate #'polynomial 1d0 3d0 1d-5) 82 1d-8)))
 
 (test start>end
-  (is (= (integrate #'identity 0d0 1d0)
-         (- (integrate #'identity 1d0 0d0)))))
+  (is (= (integrate #'identity 0d0 1d0 1d-3)
+         (- (integrate #'identity 1d0 0d0 1d-3)))))
