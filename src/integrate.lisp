@@ -44,10 +44,23 @@ rule. Δ controls the argument's increment during integration. Smaller
 values give more accurate result."))
 
 #+sbcl
-(progn
-  (sb-c:deftransform integrate
-      ((fn start end δ) (t single-float single-float single-float) *)
-    '(integrate/single-float fn start end δ))
-  (sb-c:deftransform integrate
-      ((fn start end δ) (t double-float double-float double-float) *)
-    '(integrate/double-float fn start end δ)))
+(sb-c:deftransform integrate
+    ((fn start end δ) (t real real real) *)
+  (let ((start-type (sb-c::lvar-type start))
+        (end-type   (sb-c::lvar-type end))
+        (δ-type     (sb-c::lvar-type δ))
+        (single-float (sb-kernel:specifier-type 'single-float))
+        (double-float (sb-kernel:specifier-type 'double-float)))
+    (cond
+      ((or (sb-kernel:csubtypep start-type double-float)
+           (sb-kernel:csubtypep end-type   double-float)
+           (sb-kernel:csubtypep δ-type     double-float))
+       ;; Promote all arguments to double float
+       '(integrate/double-float fn (float start 0d0) (float end 0d0) (float δ 0d0)))
+      ((or (sb-kernel:csubtypep start-type single-float)
+           (sb-kernel:csubtypep end-type   single-float)
+           (sb-kernel:csubtypep δ-type     single-float))
+       ;; Promote all arguments to single float
+       '(integrate/single-float fn (float start 0f0) (float end 0f0) (float δ 0f0)))
+      (t
+       (sb-c::give-up-ir1-transform)))))
